@@ -70,6 +70,7 @@ const m2 = lead.match(/^Assigned (\$[\d.]+K), not (\$[\d.]+K)\.$/);
 const why = m2 ? `Assigned ${m2[1]} rather than ${m2[2]}. Your Heavy Up Score clears the growth threshold, but at least one acceleration gate still needs work, so this plan grows qualified demand while that gate is repaired.` : [lead, ...others.slice(0, 1)].join(" ");
 const nm = r[F.name].toUpperCase(), price = "$" + fmt(r[F.budget]), st = (r[F.status] || "").toUpperCase();
 const f1 = n => n == null ? "—" : n.toFixed(1);
+const opts = R.slice().sort((a, b) => a[F.name].localeCompare(b[F.name])).map(x => ({ code: x[F.code], label: `${x[F.name]} · ${x[F.code]} · ${x[F.pkg]}` }));
 const li = t => `<li>${esc(t)}</li>`;
 
 document.title = `${r[F.name]} · Heavy Up Diagnosis`;
@@ -79,6 +80,19 @@ document.getElementById("app").innerHTML = `
   <div class="center"><b>JLR</b><span>RETAILER DIGITAL PROGRAM</span></div>
   <div class="right"><span>${esc(r[F.code])}</span><button class="btn out" id="out">SIGN OUT</button><button class="btn sm">ENROLL NOW</button></div>
 </header>
+<div class="am">
+  <div class="am-in">
+    <span class="am-k">AREA MANAGER VIEW</span>
+    <div class="am-ctl">
+      <select id="dealerSel" aria-label="Select dealer">${opts.map(o => `<option value="${esc(o.code)}"${o.code === code ? " selected" : ""}>${esc(o.label)}</option>`).join("")}</select>
+      <div class="am-arrows">
+        <button class="am-btn" id="prevDealer" aria-label="Previous dealer"><svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6H1M6 1L1 6l5 5"/></svg></button>
+        <button class="am-btn" id="nextDealer" aria-label="Next dealer"><svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 6h14M10 1l5 5-5 5"/></svg></button>
+      </div>
+    </div>
+    <span class="am-n">${R.length} retailers · March–August 2026 source period</span>
+  </div>
+</div>
 <section class="hd px">
   <div class="rule"></div>
   <span class="eyebrow">HEAVY UP DIAGNOSIS · MARCH–AUGUST 2026</span>
@@ -94,7 +108,7 @@ document.getElementById("app").innerHTML = `
 <section class="banner">
   <div><span class="k">YOUR HEAVY UP PLAN · ${esc(nm)}</span><div class="nm"><span>${pname.toUpperCase()}</span><span class="tag">${esc(st)}</span></div></div>
   <div class="amt"><b>${price}</b><span>working media / month</span></div>
-  <div class="acts"><a href="#plan"><button class="btn ghost" style="height:48px">SEE PLAN DETAILS ↓</button></a><button class="btn light" style="height:48px">ENROLL IN THIS PLAN</button></div>
+  <div class="acts"><button class="btn ghost" id="seePlan" style="height:48px">SEE PLAN DETAILS ↓</button><button class="btn light" style="height:48px">ENROLL IN THIS PLAN</button></div>
 </section>
 <section class="ov px">
   <div style="display:flex;flex-direction:column;gap:12px;padding-bottom:8px"><span class="eyebrow">OVERVIEW</span><h2>YOUR STORE AT A GLANCE</h2><span class="sub">Your Heavy Up Score, what the data says is limiting growth, and your full funnel against the network.</span></div>
@@ -155,3 +169,18 @@ document.getElementById("app").innerHTML = `
 <footer><span>LAND ROVER HEAVY UP PROGRAM</span><span>PROGRAM SUPPORT: JLR@HELLOCONSTELLATION.COM</span></footer>`;
 
 document.getElementById("out").addEventListener("click", () => { try { sessionStorage.removeItem(KEY); } catch {} location.href = "index.html"; });
+
+const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+document.getElementById("seePlan").addEventListener("click", () => {
+  const to = document.getElementById("plan").getBoundingClientRect().top + window.scrollY - 24, from = window.scrollY, dist = to - from;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return window.scrollTo(0, to);
+  const dur = Math.min(1400, 600 + Math.abs(dist) * 0.4), t0 = performance.now();
+  const step = now => { const p = Math.min(1, (now - t0) / dur); window.scrollTo(0, from + dist * easeInOut(p)); if (p < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+});
+
+const goDealer = c => { try { sessionStorage.setItem(KEY, c); } catch {} location.reload(); };
+const idx = opts.findIndex(o => o.code === code);
+document.getElementById("dealerSel").addEventListener("change", e => goDealer(e.target.value));
+document.getElementById("prevDealer").addEventListener("click", () => goDealer(opts[(idx - 1 + opts.length) % opts.length].code));
+document.getElementById("nextDealer").addEventListener("click", () => goDealer(opts[(idx + 1) % opts.length].code));
