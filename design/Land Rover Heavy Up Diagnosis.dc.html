@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E9E9E9;font-family:'Raleway',sans-serif;color:#0E0E0E;font-variant-numeric:lining-nums tabular-nums;-webkit-font-smoothing:antialiased}
+a{color:#0E0E0E;text-decoration:underline}a:hover{color:#5C5C5C}
+input,select,button{font-family:inherit;font-variant-numeric:lining-nums tabular-nums}
+</style>
+</helmet>
+<section onMouseOver="{{ onOver }}" onMouseMove="{{ onMove }}" onMouseLeave="{{ onLeave }}" style="padding:80px;display:flex;flex-direction:column;gap:32px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <span style="font-size:13px;font-weight:600;letter-spacing:2px;color:#5C5C5C">TURN 1 · LAND ROVER HEAVY UP</span>
+    <span style="font-size:15px;color:#5C5C5C">Retailer sign-in and diagnosis. Hover any figure to see its source cell in the spreadsheet.</span>
+  </div>
+  <div style="display:flex;gap:64px;align-items:flex-start;flex-wrap:wrap">
+
+  <!-- 1a LOGIN -->
+  <div id="1a" data-screen-label="1a Sign in" style="display:flex;flex-direction:column;gap:12px">
+    <span style="align-self:flex-start;background:#0E0E0E;color:#fff;font-size:13px;font-weight:700;padding:4px 10px;letter-spacing:1px">1a · Sign in</span>
+    <div style="width:1440px;background:#fff;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(0,0,0,.08)">
+      <div style="height:80px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 64px;border-bottom:1px solid #E2E2E2">
+        <span style="font-size:22px;font-weight:300;letter-spacing:1px">JLR</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:13px;font-weight:700;letter-spacing:1px">JLR</span><span style="font-size:10px;font-weight:500;letter-spacing:2px;color:#8A8A8A">RETAILER DIGITAL PROGRAM</span></div>
+        <span style="justify-self:end;font-size:10px;font-weight:500;letter-spacing:2px;color:#8A8A8A">POWERED BY CONSTELLATION</span>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:96px;padding:112px 120px;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:28px;max-width:520px">
+          <div style="width:48px;height:1px;background:#0E0E0E"></div>
+          <span style="font-size:11px;font-weight:600;letter-spacing:2px;color:#8A8A8A">LAND ROVER RETAILER PROGRAM</span>
+          <h1 style="margin:0;font-size:44px;font-weight:500;line-height:1.12;letter-spacing:.5px">YOUR RETAILER-SPECIFIC HEAVY UP DIAGNOSIS</h1>
+          <p style="margin:0;font-size:17px;line-height:1.65;color:#4A4A4A;font-weight:400;text-wrap:pretty">Sign in with your retailer code to see how your website shoppers convert into sales, the opportunity limiting your growth, and the Heavy Up plan aligned to it.</p>
+          <div style="display:flex;flex-direction:column;gap:20px;padding-top:8px">
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:600;letter-spacing:1.5px;color:#5C5C5C">RETAILER CODE</span>
+              <input value="{{ loginCode }}" onChange="{{ onCode }}" style="height:48px;border:1px solid #C9C9C9;padding:0 16px;font-size:16px;letter-spacing:1px;outline:none;border-radius:0" style-focus="border-color:#0E0E0E"></label>
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:600;letter-spacing:1.5px;color:#5C5C5C">PASSWORD</span>
+              <input type="password" value="landrover" readOnly="{{ true }}" style="height:48px;border:1px solid #C9C9C9;padding:0 16px;font-size:16px;outline:none;border-radius:0"></label>
+            <sc-if value="{{ loginErr }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;color:#B3261E">{{ loginErr }}</span></sc-if>
+            <div style="display:flex;align-items:center;gap:24px;padding-top:8px">
+              <button onClick="{{ signIn }}" style="height:48px;padding:0 36px;background:#0E0E0E;color:#fff;border:0;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer" style-hover="background:#333">SIGN IN</button>
+              <span style="font-size:13px;color:#5C5C5C">Forgot your password? Contact your area manager.</span>
+            </div>
+          </div>
+        </div>
+        <div style="height:640px;background:#ddd url('assets/jlr-defender.png') center/cover no-repeat;box-shadow:0 12px 32px rgba(0,0,0,.12)"></div>
+      </div>
+      <div style="background:#0E0E0E;color:#9A9A9A;padding:28px 64px;display:flex;justify-content:space-between;font-size:10px;font-weight:500;letter-spacing:2px"><span>LAND ROVER HEAVY UP PROGRAM</span><span>PROGRAM SUPPORT: JLR@HELLOCONSTELLATION.COM</span></div>
+    </div>
+  </div>
+
+  <!-- 1b DIAGNOSIS -->
+  <div id="1b" data-screen-label="1b Diagnosis" style="display:flex;flex-direction:column;gap:12px">
+    <span style="align-self:flex-start;background:#0E0E0E;color:#fff;font-size:13px;font-weight:700;padding:4px 10px;letter-spacing:1px">1b · Diagnosis</span>
+    <div ref="{{ diagRef }}" style="width:1440px;background:#fff;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(0,0,0,.08)">
+      <div style="height:80px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 64px;border-bottom:1px solid #E2E2E2">
+        <span style="font-size:22px;font-weight:300;letter-spacing:1px">JLR</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:13px;font-weight:700;letter-spacing:1px">JLR</span><span style="font-size:10px;font-weight:500;letter-spacing:2px;color:#8A8A8A">RETAILER DIGITAL PROGRAM</span></div>
+        <div style="justify-self:end;display:flex;align-items:center;gap:20px"><span style="font-size:12px;color:#5C5C5C">{{ d.code }}</span><button style="height:40px;padding:0 24px;background:#0E0E0E;color:#fff;border:0;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer" style-hover="background:#333">ENROLL NOW</button></div>
+      </div>
+      <div style="background:#F5F5F5;border-bottom:1px solid #E2E2E2;padding:12px 64px;display:flex;align-items:center;gap:16px">
+        <span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">AREA MANAGER VIEW</span>
+        <select ref="{{ selRef }}" onChange="{{ pick }}" style="height:32px;border:1px solid #C9C9C9;background:#fff;padding:0 10px;font-size:13px;min-width:320px;border-radius:0">
+          <sc-for list="{{ dealerOpts }}" as="o" hint-placeholder-count="0"><option value="{{ o.code }}">{{ o.label }}</option></sc-for>
+        </select>
+        <span style="font-size:12px;color:#8A8A8A">205 retailers · March–August 2026 source period</span>
+      </div>
+
+      <div style="padding:72px 120px 48px;display:flex;flex-direction:column;gap:20px">
+        <div style="width:48px;height:1px;background:#0E0E0E"></div>
+        <span style="font-size:11px;font-weight:600;letter-spacing:2px;color:#8A8A8A">HEAVY UP DIAGNOSIS · MARCH–AUGUST 2026</span>
+        <h1 data-src="{{ d.srcName }}" style="margin:0;font-size:48px;font-weight:500;line-height:1.08;letter-spacing:.5px">{{ d.nameUp }}</h1>
+        <div style="display:flex;gap:40px;flex-wrap:wrap;font-size:14px;color:#5C5C5C">
+          <span data-src="{{ d.srcCode }}" style="white-space:nowrap">Retailer code <strong style="color:#0E0E0E;font-weight:600">{{ d.code }}</strong></span>
+          <span data-src="{{ d.srcSales }}" style="white-space:nowrap">Retail sales <strong style="color:#0E0E0E;font-weight:600">{{ d.sales }}</strong></span>
+          <span data-src="{{ d.srcCohort }}" style="white-space:nowrap">Sales cohort <strong style="color:#0E0E0E;font-weight:600">{{ d.cohort }}</strong></span>
+        </div>
+      </div>
+
+      <div style="padding:0 120px 40px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:end">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;font-weight:600;letter-spacing:2px;color:#8A8A8A">START HERE</span>
+          <h2 style="margin:0;font-size:30px;font-weight:500;letter-spacing:.5px;line-height:1.15">THE THREE METRICS THAT MOVE SALES</h2>
+          <span style="font-size:15px;color:#5C5C5C;line-height:1.55">Your results against the median of the 203 Land Rover retailers with sales data.</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#5C5C5C"><span style="width:1px;height:14px;background:#0E0E0E"></span>Network median</div>
+      </div>
+      <div style="padding:0 120px 32px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+        <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="3">
+          <div style="display:grid;grid-row:span 5;grid-template-rows:subgrid;gap:20px;border:1px solid #E2E2E2;padding:32px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">{{ m.eyebrow }}</span><span data-src="{{ m.rhoSrc }}" style="font-size:12px;color:#5C5C5C">ρ {{ m.rho }} with sales</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:20px;font-weight:600">{{ m.label }}</span><span style="font-size:14px;color:#5C5C5C;line-height:1.5">{{ m.desc }}</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><span data-src="{{ m.valSrc }}" style="font-size:52px;font-weight:300;line-height:1">{{ m.val }}</span><span style="font-size:11px;font-weight:700;letter-spacing:1px;padding:6px 10px;background:{{ m.stBg }};color:{{ m.stCol }}">{{ m.status }}</span></div>
+            <div style="position:relative;height:6px;background:#E9E9E9;margin:6px 0">
+              <div style="position:absolute;left:0;top:0;bottom:0;width:{{ m.barW }};background:{{ m.stCol }}"></div>
+              <div style="position:absolute;left:50%;top:-7px;bottom:-7px;width:1px;background:#0E0E0E"></div>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <div data-src="{{ m.medSrc }}" style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid #EDEDED;font-size:14px"><span style="color:#5C5C5C">Network median</span><span style="font-weight:600">{{ m.med }}</span></div>
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid #EDEDED;font-size:14px"><span style="color:#5C5C5C">Difference</span><span style="font-weight:600;color:{{ m.stCol }}">{{ m.diff }}</span></div>
+              <div data-src="{{ m.rankSrc }}" style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid #EDEDED;font-size:14px"><span style="color:#5C5C5C">Network rank</span><span style="font-weight:600">{{ m.rank }}</span></div>
+              <div style="background:#F5F5F5;padding:14px 16px;margin-top:8px;font-size:14px;line-height:1.5;font-weight:500">{{ m.take }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin:0 120px 80px;background:#0E0E0E;color:#fff;padding:28px 32px;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:32px;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+          <span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#9A9A9A;white-space:nowrap">YOUR HEAVY UP PLAN · {{ d.nameUp }}</span>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><span data-src="{{ plan.srcName }}" style="font-size:24px;font-weight:500;letter-spacing:.5px;white-space:nowrap">{{ plan.nameUp }}</span><span data-src="{{ d.srcStatus }}" style="font-size:10px;font-weight:700;letter-spacing:1.5px;padding:6px 10px;border:1px solid #555;color:#D9D9D9;white-space:nowrap">{{ d.status }}</span></div>
+        </div>
+        <div data-src="{{ plan.srcBudget }}" style="display:flex;flex-direction:column;gap:2px;padding-left:32px;border-left:1px solid #333"><span style="font-size:32px;font-weight:500">{{ plan.price }}</span><span style="font-size:13px;color:#9A9A9A">working media / month</span></div>
+        <div style="display:flex;gap:12px">
+          <button onClick="{{ toPlan }}" style="height:48px;padding:0 24px;background:transparent;color:#fff;border:1px solid #fff;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer" style-hover="background:#222">SEE PLAN DETAILS ↓</button>
+          <button style="height:48px;padding:0 28px;background:#fff;color:#0E0E0E;border:0;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer" style-hover="background:#E2E2E2">ENROLL IN THIS PLAN</button>
+        </div>
+      </div>
+
+      <div style="background:#F5F5F5;padding:80px 120px;display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;flex-direction:column;gap:12px;padding-bottom:8px">
+          <span style="font-size:11px;font-weight:600;letter-spacing:2px;color:#8A8A8A">OVERVIEW</span>
+          <h2 style="margin:0;font-size:30px;font-weight:500;letter-spacing:.5px">YOUR STORE AT A GLANCE</h2>
+          <span style="font-size:15px;color:#5C5C5C;line-height:1.55">Your Heavy Up Score, what the data says is limiting growth, and your full funnel against the network.</span>
+        </div>
+        <div style="display:grid;grid-template-columns:440px minmax(0,1fr);gap:24px">
+          <div style="background:#0E0E0E;color:#fff;padding:36px;display:flex;flex-direction:column;gap:24px">
+            <span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#9A9A9A">HEAVY UP SCORE</span>
+            <div data-src="{{ d.srcScore }}" style="display:flex;align-items:baseline;gap:8px"><span style="font-size:88px;font-weight:300;line-height:.9">{{ d.score }}</span><span style="font-size:18px;color:#9A9A9A">/ 100</span></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;height:6px;background:#333">
+                <div style="position:absolute;left:0;top:0;bottom:0;width:{{ d.scoreW }};background:#fff"></div>
+                <div data-src="Methodology › $5K Heavy Up Score threshold (col B), row 13" style="position:absolute;left:45%;top:-8px;bottom:-8px;width:1px;background:#9A9A9A"></div>
+                <div data-src="Methodology › $7.5K Heavy Up Score threshold (col B), row 11" style="position:absolute;left:67%;top:-8px;bottom:-8px;width:1px;background:#9A9A9A"></div>
+              </div>
+              <div style="position:relative;height:16px;font-size:11px;color:#9A9A9A"><span style="position:absolute;left:45%;transform:translateX(-50%)">$5K · 45</span><span style="position:absolute;left:67%;transform:translateX(-50%)">$7.5K · 67</span></div>
+            </div>
+            <div style="display:flex;flex-direction:column;border-top:1px solid #333">
+              <div data-src="{{ d.srcReady }}" style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #333;font-size:14px"><span style="color:#BDBDBD">Funnel readiness</span><span style="font-weight:600">{{ d.ready }}</span></div>
+              <div data-src="{{ d.srcReach }}" style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #333;font-size:14px"><span style="color:#BDBDBD">Reach score</span><span style="font-weight:600">{{ d.reach }}</span></div>
+              <div data-src="{{ d.srcConf }}" style="display:flex;justify-content:space-between;padding:12px 0;font-size:14px"><span style="color:#BDBDBD">Data confidence</span><span style="font-weight:600">{{ d.conf }}</span></div>
+            </div>
+          </div>
+          <div style="background:#fff;padding:36px;display:flex;flex-direction:column;gap:20px">
+            <span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">THE DIAGNOSIS</span>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <span data-src="{{ d.srcSeg }}" style="font-size:12px;font-weight:600;letter-spacing:.5px;padding:7px 12px;border:1px solid #C9C9C9">{{ d.segment }}</span>
+              <span data-src="{{ d.srcNeed }}" style="font-size:12px;font-weight:600;letter-spacing:.5px;padding:7px 12px;background:#F8E9E7;color:#B3261E">Primary need · {{ d.need }}</span>
+            </div>
+            <span data-src="{{ d.srcSays }}" style="font-size:24px;font-weight:400;line-height:1.35;text-wrap:pretty">{{ d.says }}</span>
+            <div style="display:flex;flex-direction:column;gap:10px;padding-top:4px" data-src="{{ d.srcReason }}">
+              <sc-for list="{{ d.reasons }}" as="r" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:16px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5;color:#3A3A3A"><span style="width:6px;height:6px;background:#0E0E0E;margin-top:8px"></span><span>{{ r }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="background:#fff;padding:32px 36px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">YOUR FUNNEL VS. NETWORK MEDIAN</span><span style="font-size:12px;color:#8A8A8A">March–August 2026</span></div>
+          <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr))">
+            <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="5">
+              <div data-src="{{ f.src }}" style="display:flex;flex-direction:column;gap:8px;padding:0 24px;border-left:1px solid #E2E2E2">
+                <span style="font-size:13px;font-weight:600">{{ f.label }}</span>
+                <span style="font-size:34px;font-weight:300;line-height:1.1">{{ f.val }}</span>
+                <span style="font-size:13px;color:#5C5C5C">Median {{ f.med }} · <span style="font-weight:600;color:{{ f.col }}">{{ f.diff }}</span></span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div id="plan-1b" style="padding:96px 120px 48px;display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:64px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:28px">
+          <div style="width:48px;height:1px;background:#0E0E0E"></div>
+          <span style="font-size:11px;font-weight:600;letter-spacing:2px;color:#8A8A8A">YOUR RECOMMENDED PLAN</span>
+          <h2 data-src="{{ plan.srcName }}" style="margin:0;font-size:40px;font-weight:500;letter-spacing:.5px;line-height:1.1">{{ plan.nameUp }}</h2>
+          <span data-src="{{ d.srcWhy }}" style="font-size:17px;line-height:1.6;color:#4A4A4A;text-wrap:pretty">{{ d.why }}</span>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1px;background:#E2E2E2;border:1px solid #E2E2E2">
+            <div data-src="{{ plan.srcFit }}" style="background:#fff;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">BEST FIT</span><span style="font-size:15px;line-height:1.5">{{ plan.fit }}</span></div>
+            <div data-src="{{ plan.srcKpi }}" style="background:#fff;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">PRIMARY KPI</span><span style="font-size:15px;line-height:1.5">{{ plan.kpi }}</span></div>
+            <div data-src="{{ plan.srcDef }}" style="background:#fff;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">DEFENDER EMPHASIS</span><span style="font-size:15px;line-height:1.5">{{ plan.def }}</span></div>
+            <div data-src="{{ plan.srcRrs }}" style="background:#fff;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">RANGE ROVER SPORT EMPHASIS</span><span style="font-size:15px;line-height:1.5">{{ plan.rrs }}</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <span style="font-size:18px;font-weight:700">How we address your primary need</span>
+            <div data-src="{{ d.srcTactics }}" style="display:grid;grid-template-columns:16px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.55"><span style="width:6px;height:6px;background:#0E0E0E;margin-top:8px"></span><span><strong style="font-weight:600">Media tactics:</strong> {{ d.tactics }}</span></div>
+            <div data-src="{{ d.srcResp }}" style="display:grid;grid-template-columns:16px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.55"><span style="width:6px;height:6px;background:#0E0E0E;margin-top:8px"></span><span><strong style="font-weight:600">In your store:</strong> {{ d.resp }}</span></div>
+            <div data-src="{{ d.srcSplit }}" style="display:grid;grid-template-columns:16px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.55"><span style="width:6px;height:6px;background:#0E0E0E;margin-top:8px"></span><span><strong style="font-weight:600">Defender / Range Rover Sport split:</strong> {{ d.split }}</span></div>
+          </div>
+        </div>
+        <div style="border:1px solid #E2E2E2;padding:36px;display:flex;flex-direction:column;gap:24px;box-shadow:0 12px 32px rgba(0,0,0,.08)">
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">{{ plan.tierUp }}</span><span style="font-size:22px;font-weight:600">{{ plan.name }}</span></div>
+          <div data-src="{{ plan.srcBudget }}" style="display:flex;align-items:baseline;gap:8px"><span style="font-size:56px;font-weight:300;line-height:1">{{ plan.price }}</span><span style="font-size:14px;color:#5C5C5C">/ month</span></div>
+          <div style="display:flex;flex-direction:column;gap:16px;padding-top:4px">
+            <span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#8A8A8A">CHANNEL MIX</span>
+            <sc-for list="{{ plan.channels }}" as="c" hint-placeholder-count="3">
+              <div data-src="{{ c.src }}" style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:{{ c.lc }}">{{ c.label }}</span><span style="font-weight:600;color:{{ c.lc }}">{{ c.amt }}</span></div>
+                <div style="height:4px;background:#EDEDED"><div style="height:4px;width:{{ c.w }};background:#0E0E0E"></div></div>
+              </div>
+            </sc-for>
+          </div>
+          <button style="height:52px;background:#0E0E0E;color:#fff;border:0;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;margin-top:8px" style-hover="background:#333">ENROLL IN {{ plan.nameUp }}</button>
+          <span style="font-size:12px;color:#8A8A8A;line-height:1.5;text-align:center">All amounts are monthly working media.</span>
+        </div>
+      </div>
+      <div data-src="{{ d.srcGate }}" style="margin:0 120px 96px;border-top:1px solid #0E0E0E;padding-top:20px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px">
+        <span style="font-size:10px;font-weight:600;letter-spacing:2px;color:#0E0E0E">BEFORE ACTIVATION</span>
+        <span style="font-size:14px;line-height:1.6;color:#4A4A4A">{{ d.gate }}</span>
+      </div>
+      <div style="background:#0E0E0E;color:#9A9A9A;padding:28px 64px;display:flex;justify-content:space-between;font-size:10px;font-weight:500;letter-spacing:2px"><span>LAND ROVER HEAVY UP PROGRAM</span><span>PROGRAM SUPPORT: JLR@HELLOCONSTELLATION.COM</span></div>
+    </div>
+  </div>
+  </div>
+  <sc-if value="{{ tip.on }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:{{ tip.x }};top:{{ tip.y }};z-index:100;pointer-events:none;background:#0E0E0E;color:#fff;padding:10px 12px;max-width:340px;font-size:12px;line-height:1.45;box-shadow:0 4px 16px rgba(0,0,0,.2)"><span style="display:block;font-size:9px;font-weight:700;letter-spacing:1.5px;color:#9A9A9A;padding-bottom:4px">SOURCE</span>{{ tip.text }}</div>
+  </sc-if>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { data: null, code: "R0654", loginCode: "R0654", loginErr: "", tip: { on: false, x: "0px", y: "0px", text: "" } };
+  componentDidMount() {
+    import(new URL("jlr-data.js", document.baseURI).href).then(m => this.setState({ data: m }));
+  }
+  diagRef = el => { this.diagEl = el; };
+  selRef = el => { this.selEl = el; this.syncSel(); };
+  syncSel = () => { const el = this.selEl; if (el && el.options.length && el.value !== this.state.code) el.value = this.state.code; };
+  componentDidUpdate() { this.syncSel(); requestAnimationFrame(this.syncSel); }
+  scrollTo = id => {
+    const el = document.getElementById(id); if (!el) return;
+    let p = el.parentElement;
+    while (p && p !== document.body) { const o = getComputedStyle(p).overflowY; if ((o === "auto" || o === "scroll") && p.scrollHeight > p.clientHeight) break; p = p.parentElement; }
+    const top = el.getBoundingClientRect().top;
+    if (p && p !== document.body) p.scrollTo({ top: p.scrollTop + top - p.getBoundingClientRect().top - 24, behavior: "smooth" });
+    else window.scrollTo({ top: window.scrollY + top - 24, behavior: "smooth" });
+  };
+  renderVals() {
+    const S = this.state, M = S.data;
+    const fmt = n => n == null ? "—" : Math.round(n).toLocaleString("en-US");
+    const pct = n => n == null ? "—" : (n * 100).toFixed(1).replace(/\.0$/, "") + "%";
+    const med = a => { a = a.filter(x => x != null && !isNaN(x)).sort((x, y) => x - y); const n = a.length; return n ? (n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2) : null; };
+    const SD = (h, c, r) => `Scoring Detail › ${h} (col ${c}), row ${r}`;
+    const DR = (h, c, r) => `Dealer Recommendations › ${h} (col ${c}), row ${r}`;
+    const PB = (h, c, r) => `Package Playbooks › ${h} (col ${c}), row ${r}`;
+    const MED = (h, c) => `Scoring Detail › ${h} (col ${c}), median of rows 5–207 (203 retailers with sales)`;
+    const base = {
+      onOver: e => { const t = e.target.closest && e.target.closest("[data-src]"); const text = t ? t.getAttribute("data-src") : ""; if (text !== this.state.tip.text || !!text !== this.state.tip.on) this.setState({ tip: { ...this.state.tip, on: !!text, text } }); },
+      onMove: e => { if (this.state.tip.on) this.setState({ tip: { ...this.state.tip, x: e.clientX + 14 + "px", y: e.clientY + 16 + "px" } }); },
+      onLeave: () => this.setState({ tip: { ...this.state.tip, on: false, text: "" } }),
+      tip: S.tip, code: S.code, loginCode: S.loginCode, loginErr: S.loginErr,
+      onCode: e => this.setState({ loginCode: e.target.value.toUpperCase(), loginErr: "" }),
+      toPlan: () => this.scrollTo("plan-1b"), diagRef: this.diagRef, selRef: this.selRef
+    };
+    const empty = { selKey: "sel-0", d: { reasons: [] }, plan: { channels: [] }, metrics: [], funnel: [], dealerOpts: [], pick: () => {}, signIn: () => {} };
+    if (!M) return { ...base, ...empty };
+    const R = M.ROWS, P = M.PACKAGES, N = M.NEEDS;
+    const F = { srow: 0, rrow: 1, name: 2, code: 3, sales: 4, cohort: 5, visits: 6, vlp: 7, ul: 8, ap: 9, close: 10, score: 13, ready: 14, reach: 15, seg: 16, need: 17, pkg: 18, budget: 19, search: 20, social: 21, prog: 22, status: 23, conf: 24, reason: 25, needs: 26, split: 27, gate: 28 };
+    const withSales = R.filter(r => r[F.sales] != null);
+    if (!this._med) this._med = { visits: med(withSales.map(r => r[F.visits])), vlp: med(withSales.map(r => r[F.vlp])), ul: med(withSales.map(r => r[F.ul])), ap: med(withSales.map(r => r[F.ap])), sales: med(withSales.map(r => r[F.sales])), close: med(withSales.map(r => r[F.close])) };
+    const MD = this._med;
+    const r = R.find(x => x[F.code] === S.code) || R[0];
+    const rank = k => { if (r[F[k]] == null) return "—"; const n = withSales.filter(x => x[F[k]] != null && x[F[k]] > r[F[k]]).length + 1; return `#${n} of ${withSales.length}`; };
+    const st = (v, m) => { if (v == null) return { s: "NO DATA", c: "#5C5C5C", b: "#EEEEEE", k: 0 }; const d = (v - m) / m; return d < -0.05 ? { s: "BELOW NETWORK", c: "#B3261E", b: "#F8E9E7", k: -1, d } : d > 0.05 ? { s: "AHEAD OF NETWORK", c: "#2F6B3B", b: "#E8F1EA", k: 1, d } : { s: "IN LINE", c: "#4A4A4A", b: "#EEEEEE", k: 0, d }; };
+    const sgn = d => d == null ? "—" : (d > 0 ? "+" : d < 0 ? "−" : "") + Math.abs(Math.round(d * 100)) + "%";
+    const defs = [
+      { k: "ul", col: "S", h: "Unique Leads", label: "Unique leads", eyebrow: "LEAD CAPTURE", rho: "0.89", rhoSrc: "Evidence › Unique leads · Spearman ρ (col B), row 7", desc: "Unduplicated shoppers who raised their hand: forms, calls and chats.", f: fmt, take: ["Too few shoppers become unique leads. Simplify high-intent CTAs and reconcile forms, calls and chats.", "Lead capture is in line with the network. Hold it steady as media scales.", "Lead capture is a strength. Your website turns shoppers into leads better than most."] },
+      { k: "vlp", col: "M", h: "VLP Total Views", label: "VLP views", eyebrow: "INVENTORY DEMAND", rho: "0.75", rhoSrc: "Evidence › VLP total views · Spearman ρ (col B), row 9", desc: "Vehicle listing page views: how much shoppers browse your inventory.", f: fmt, take: ["Shoppers aren't browsing enough inventory. More qualified, model-specific traffic should land on matching inventory.", "Inventory browsing is in line with the network.", "Inventory browsing is a strength. Shoppers are actively shopping your stock."] },
+      { k: "close", col: "U", h: "Close Rate", label: "Close rate", eyebrow: "SOLD OUTCOMES", rho: "0.25", rhoSrc: "Evidence › Close rate · Spearman ρ (col B), row 16", desc: "Share of leads that become sold vehicles.", f: pct, take: ["Sold outcomes lag. Inspect lead quality and sales follow-up before adding media.", "Close rate is in line with the network.", "Close rate is a strength. Leads you capture turn into sales."] }
+    ];
+    const metrics = defs.map(m => { const v = r[F[m.k]], md = MD[m.k], s = st(v, md); return { eyebrow: m.eyebrow, rho: m.rho, rhoSrc: m.rhoSrc, label: m.label, desc: m.desc, val: m.f(v), valSrc: SD(m.h, m.col, r[F.srow]), med: m.f(md), medSrc: MED(m.h, m.col), diff: sgn(s.d), status: s.s, stCol: s.c, stBg: s.b, barW: v == null ? "0%" : Math.min(100, v / md * 50).toFixed(1) + "%", rank: rank(m.k), rankSrc: `Scoring Detail › ${m.h} (col ${m.col}), ranked across 203 retailers with sales`, take: m.take[s.k + 1] }; });
+    const fdefs = [["Total visits", "visits", "J", "Total Visits"], ["VLP views", "vlp", "M", "VLP Total Views"], ["Unique leads", "ul", "S", "Unique Leads"], ["Appointments", "ap", "T", "Appointments"], ["Retail sales", "sales", "H", "Sales"]];
+    const funnel = fdefs.map(([label, k, c, h]) => { const s = st(r[F[k]], MD[k]); return { label, val: fmt(r[F[k]]), med: fmt(MD[k]), diff: sgn(s.d), col: s.c, src: SD(h, c, r[F.srow]) + " · median of 203 retailers" }; });
+    const pk = P[r[F.pkg]] || P["$3K"];
+    const pname = { "$3K": "Demand Capture Plan", "$5K": "Growth Plan", "$7.5K": "Acceleration Plan" }[r[F.pkg]] || "Heavy Up Plan";
+    const ch = [["Paid search", r[F.search], "K", "Paid Search"], ["Paid social", r[F.social], "L", "Paid Social"], ["Programmatic", r[F.prog], "M", "Programmatic"]];
+    const plan = {
+      name: pname, nameUp: pname.toUpperCase(), tierUp: `${r[F.pkg]} · ${pk.purpose.toUpperCase()}`, price: "$" + fmt(r[F.budget]),
+      srcName: DR("Package", "A", r[F.rrow]), srcBudget: DR("Monthly Budget", "N", r[F.rrow]),
+      fit: pk.fit, kpi: pk.kpi, def: pk.def, rrs: pk.rrs,
+      srcFit: PB("Best fit", "I", pk.row), srcKpi: PB("Primary KPI", "J", pk.row), srcDef: PB("Defender emphasis", "G", pk.row), srcRrs: PB("Range Rover Sport emphasis", "H", pk.row),
+      channels: ch.map(([label, v, c, h]) => ({ label: v ? label : label + " · off at this tier", amt: "$" + fmt(v), w: (v / r[F.budget] * 100).toFixed(1) + "%", lc: v ? "#0E0E0E" : "#9A9A9A", src: DR(h, c, r[F.rrow]) }))
+    };
+    const need = N[r[F.need]];
+    const reasonTxt = r[F.reason] || "";
+    const sents = reasonTxt.split(/(?<=\.)\s+(?=[A-Z])/).map(s => s.trim()).filter(Boolean);
+    const lead = sents[0] || "", gateS = sents.find(s => /^Gate\(s\) to fix:/.test(s));
+    const others = sents.slice(1).filter(s => !/^Observed funnel|^Weakest multiplier|^Gate\(s\) to fix:/.test(s));
+    const ulk = r[F.visits] ? r[F.ul] / r[F.visits] * 1000 : null, apk = r[F.visits] ? r[F.ap] / r[F.visits] * 1000 : null;
+    const reasons = [];
+    if (gateS) reasons.push(gateS.replace(/^Gate\(s\) to fix:\s*/, "To unlock the next tier, fix: ").replace(/;\s*programmatic stays off\.?$/, ". Programmatic stays off until then."));
+    others.forEach(s => reasons.push(s));
+    if (r[F.visits] != null && r[F.sales] != null) reasons.push(`${fmt(r[F.visits])} visits against a ${fmt(MD.visits)} network median, producing ${ulk.toFixed(1)} unique leads and ${apk.toFixed(1)} appointments per 1,000 visits, with a ${pct(r[F.close])} close rate.`);
+    const m2 = lead.match(/^Assigned (\$[\d.]+K), not (\$[\d.]+K)\.$/);
+    const why = m2 ? `Assigned ${m2[1]} rather than ${m2[2]}. Your Heavy Up Score clears the growth threshold, but at least one acceleration gate still needs work, so this plan grows qualified demand while that gate is repaired.` : [lead].concat(others.slice(0, 1)).join(" ");
+    const d = {
+      name: r[F.name], nameUp: r[F.name].toUpperCase(), code: r[F.code], sales: fmt(r[F.sales]), cohort: r[F.cohort],
+      srcName: SD("Dealer Name", "A", r[F.srow]), srcCode: SD("Primary Code", "B", r[F.srow]), srcSales: SD("Sales", "H", r[F.srow]), srcCohort: SD("Sales Cohort", "I", r[F.srow]),
+      status: (r[F.status] || "").toUpperCase(), srcStatus: SD("Activation Status", "AV", r[F.srow]),
+      score: r[F.score] == null ? "—" : r[F.score].toFixed(1), scoreW: (r[F.score] || 0) + "%", srcScore: SD("Heavy Up Score", "AN", r[F.srow]),
+      ready: r[F.ready] == null ? "—" : r[F.ready].toFixed(1), srcReady: SD("Readiness Score", "AM", r[F.srow]),
+      reach: r[F.reach] == null ? "—" : r[F.reach].toFixed(1), srcReach: SD("Reach Score", "AF", r[F.srow]),
+      conf: r[F.conf], srcConf: SD("Data Confidence", "AW", r[F.srow]),
+      segment: r[F.seg], srcSeg: SD("Diagnostic Segment", "AO", r[F.srow]),
+      need: r[F.need], srcNeed: SD("Primary Constraint", "AP", r[F.srow]),
+      says: need ? need.says : "No sales record appears in the supplied sales file, so the funnel can't be scored yet.", srcSays: need ? PB("What the data is saying", "B", need.row) : SD("Data-Based Reasoning", "AX", r[F.srow]),
+      reasons, srcReason: SD("Data-Based Reasoning", "AX", r[F.srow]),
+      why, srcWhy: DR("Why this package", "O", r[F.rrow]),
+      tactics: r[F.needs], srcTactics: DR("What this dealership needs", "P", r[F.rrow]),
+      resp: need ? need.resp : "Reconcile the sales identity and sold feed before activation.", srcResp: need ? PB("Required response", "C", need.row) : DR("What this dealership needs", "P", r[F.rrow]),
+      split: r[F.split], srcSplit: DR("Defender / RR Sport split", "Q", r[F.rrow]),
+      gate: r[F.gate], srcGate: DR("Inventory gate", "R", r[F.rrow])
+    };
+    if (!this._opts) this._opts = R.slice().sort((a, b) => a[F.name].localeCompare(b[F.name])).map(x => ({ code: x[F.code], label: `${x[F.name]} · ${x[F.code]} · ${x[F.pkg]}` }));
+    return {
+      ...base, d, plan, metrics, funnel, dealerOpts: this._opts, selKey: "sel-" + this._opts.length + "-" + S.code,
+      pick: e => this.setState({ code: e.target.value, loginCode: e.target.value }),
+      signIn: () => { const c = S.loginCode.trim().toUpperCase(); if (R.some(x => x[F.code] === c)) { this.setState({ code: c, loginErr: "" }); setTimeout(() => this.scrollTo("1b"), 0); } else this.setState({ loginErr: "We couldn't find that retailer code. Check the code or contact your area manager." }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

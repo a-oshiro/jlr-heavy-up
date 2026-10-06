@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Land Rover Heavy Up Diagnosis · Sign in</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="logo">JLR</span>
+    <div class="center"><b>JLR</b><span>RETAILER DIGITAL PROGRAM</span></div>
+    <span class="right-label" style="justify-self:end">POWERED BY CONSTELLATION</span>
+  </header>
+  <main class="login">
+    <form class="copy" id="f" autocomplete="off">
+      <div class="rule"></div>
+      <span class="eyebrow">LAND ROVER RETAILER PROGRAM</span>
+      <h1>YOUR RETAILER-SPECIFIC HEAVY UP DIAGNOSIS</h1>
+      <p>Enter your retailer code to see how your website shoppers convert into sales, the opportunity limiting your growth, and the Heavy Up plan aligned to it.</p>
+      <label>RETAILER CODE<input id="code" placeholder="e.g. R0654" required autofocus spellcheck="false"></label>
+      <div class="err" id="err" role="alert"></div>
+      <div><button class="btn" style="height:48px;padding:0 36px" type="submit">VIEW MY DIAGNOSIS</button></div>
+      <span class="muted" style="font-size:13px">Can't find your code? Contact your area manager.</span>
+    </form>
+    <div class="hero"></div>
+  </main>
+  <footer><span>LAND ROVER HEAVY UP PROGRAM</span><span>PROGRAM SUPPORT: JLR@HELLOCONSTELLATION.COM</span></footer>
+</div>
+<script type="module">
+import { ROWS } from "./src/data.js";
+const key = "jlr.code";
+try { if (sessionStorage.getItem(key)) location.replace("diagnosis.html"); } catch {}
+document.getElementById("f").addEventListener("submit", e => {
+  e.preventDefault();
+  const c = document.getElementById("code").value.trim().toUpperCase();
+  if (!ROWS.some(r => r[3] === c)) { document.getElementById("err").textContent = "We couldn't find that retailer code. Check the code or contact your area manager."; return; }
+  try { sessionStorage.setItem(key, c); } catch {}
+  location.href = "diagnosis.html";
+});
+</script>
+</body>
+</html>
