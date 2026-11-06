@@ -37,7 +37,7 @@ const metricCard = m => {
     <div class="row"><span class="eyebrow" style="font-size:10px">${m.eyebrow}</span><span class="muted" style="font-size:12px">ρ ${m.rho} with sales</span></div>
     <div><span class="lbl">${m.label}</span><span class="desc">${m.desc}</span></div>
     <div class="row" style="align-items:center"><span class="val">${m.f(v)}</span><span class="pill" style="background:${s.b};color:${s.c}">${s.s}</span></div>
-    <div class="bar"><i style="width:${v == null ? 0 : Math.min(100, v / md * 50).toFixed(1)}%;background:${s.c}"></i><b></b></div>
+    <div class="bar"><i style="width:${v == null ? 0 : Math.min(100, v / md * 50).toFixed(1)}%;background:${s.c}"></i><b data-tip="Network median: ${m.f(md)}"></b></div>
     <div>
       <div class="kv"><span class="muted">Network median</span><span>${m.f(md)}</span></div>
       <div class="kv"><span class="muted">Difference</span><span style="color:${s.c}">${sgn(s.d)}</span></div>
@@ -67,8 +67,8 @@ if (r[F.visits] != null && r[F.sales] != null) {
   reasons.push(`${fmt(r[F.visits])} visits against a ${fmt(MD.visits)} network median, producing ${ulk.toFixed(1)} unique leads and ${apk.toFixed(1)} appointments per 1,000 visits, with a ${pct(r[F.close])} close rate.`);
 }
 const m2 = lead.match(/^Assigned (\$[\d.]+K), not (\$[\d.]+K)\.$/);
-const why = m2 ? `Assigned ${m2[1]} rather than ${m2[2]}. Your Heavy Up Score clears the growth threshold, but at least one acceleration gate still needs work, so this plan grows qualified demand while that gate is repaired.` : [lead, ...others.slice(0, 1)].join(" ");
-const nm = r[F.name].toUpperCase(), price = "$" + fmt(r[F.budget]), st = (r[F.status] || "").toUpperCase();
+const why = m2 ? `Your Heavy Up Score clears the growth threshold, but at least one acceleration gate still needs work, so this plan grows qualified demand while that gate is repaired.` : [lead, ...others.slice(0, 1)].join(" ");
+const nm = r[F.name].toUpperCase(), price = "$" + fmt(r[F.budget]);
 const f1 = n => n == null ? "—" : n.toFixed(1);
 const opts = R.slice().sort((a, b) => a[F.name].localeCompare(b[F.name])).map(x => ({ code: x[F.code], label: `${x[F.name]} · ${x[F.code]} · ${x[F.pkg]}` }));
 const li = t => `<li>${esc(t)}</li>`;
@@ -94,19 +94,17 @@ document.getElementById("app").innerHTML = `
   </div>
 </div>
 <section class="hd px">
-  <div class="rule"></div>
   <span class="eyebrow">HEAVY UP DIAGNOSIS · MARCH–AUGUST 2026</span>
   <h1>${esc(nm)}</h1>
-  <div class="facts"><span>Retailer code <strong>${esc(r[F.code])}</strong></span><span>Retail sales <strong>${fmt(r[F.sales])}</strong></span><span>Sales cohort <strong>${esc(r[F.cohort])}</strong></span></div>
+  <div class="facts"><span>Retailer code<strong class="c">:</strong> <strong>${esc(r[F.code])}</strong></span><span>Retail sales<strong class="c">:</strong> <strong>${fmt(r[F.sales])}</strong></span><span>Sales cohort<strong class="c">:</strong> <strong>${esc(r[F.cohort])}</strong></span></div>
 </section>
 <section class="sec-h px">
-  <span class="eyebrow">START HERE</span>
   <h2>THE THREE METRICS THAT MOVE SALES</h2>
   <span class="sub">Your results against the median of the ${withSales.length} Land Rover retailers with sales data. The vertical line marks the network median.</span>
 </section>
 <section class="metrics px">${defs.map(metricCard).join("")}</section>
 <section class="banner">
-  <div><span class="k">YOUR HEAVY UP PLAN · ${esc(nm)}</span><div class="nm"><span>${pname.toUpperCase()}</span><span class="tag">${esc(st)}</span></div></div>
+  <div><span class="k">YOUR HEAVY UP PLAN · ${esc(nm)}</span><div class="nm"><span>${pname.toUpperCase()}</span></div></div>
   <div class="amt"><b>${price}</b><span>working media / month</span></div>
   <div class="acts"><button class="btn ghost" id="seePlan" style="height:48px">SEE PLAN DETAILS ↓</button><button class="btn light" style="height:48px">ENROLL IN THIS PLAN</button></div>
 </section>
@@ -140,15 +138,14 @@ document.getElementById("app").innerHTML = `
 </section>
 <section class="plan px" id="plan">
   <div class="left">
-    <div class="rule"></div>
     <span class="eyebrow">YOUR RECOMMENDED PLAN</span>
     <h2>${pname.toUpperCase()}</h2>
     <span class="why">${esc(why)}</span>
     <div class="facts4">
-      <div><span class="eyebrow" style="font-size:10px">BEST FIT</span>${esc(pk.fit)}</div>
-      <div><span class="eyebrow" style="font-size:10px">PRIMARY KPI</span>${esc(pk.kpi)}</div>
-      <div><span class="eyebrow" style="font-size:10px">DEFENDER EMPHASIS</span>${esc(pk.def)}</div>
-      <div><span class="eyebrow" style="font-size:10px">RANGE ROVER SPORT EMPHASIS</span>${esc(pk.rrs)}</div>
+      <div><span class="ft"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg>BEST FIT</span>${esc(pk.fit)}</div>
+      <div><span class="ft"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M5 16l5-5 4 3 6-7"/><path d="M15 7h5v5"/></svg>PRIMARY KPI</span>${esc(pk.kpi)}</div>
+      <div><span class="ft"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17V8.5h13.5L20 12l1 1v4"/><path d="M3 12h17"/><path d="M9.5 8.5V12"/><circle cx="7" cy="17" r="2" fill="#fff"/><circle cx="17" cy="17" r="2" fill="#fff"/></svg>DEFENDER EMPHASIS</span>${esc(pk.def)}</div>
+      <div><span class="ft"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l1.6-4.6A2 2 0 0 1 6.5 9h11a2 2 0 0 1 1.9 1.4L21 15"/><rect x="2.5" y="15" width="19" height="4" rx="1"/><circle cx="7" cy="17" r=".8" fill="currentColor"/><circle cx="17" cy="17" r=".8" fill="currentColor"/></svg>RANGE ROVER SPORT EMPHASIS</span>${esc(pk.rrs)}</div>
     </div>
     <div class="how"><h3>How we address your primary need</h3>
       <ul class="sq">
@@ -158,7 +155,7 @@ document.getElementById("app").innerHTML = `
       </ul></div>
   </div>
   <aside class="quote">
-    <div style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow" style="font-size:10px">${esc(r[F.pkg])} · ${esc(pk.purpose.toUpperCase())}</span><span style="font-size:22px;font-weight:600">${pname}</span></div>
+    <span style="font-size:22px;font-weight:600">${pname}</span>
     <div style="display:flex;align-items:baseline;gap:8px"><span class="price">${price}</span><span class="muted" style="font-size:14px">/ month</span></div>
     <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow" style="font-size:10px">CHANNEL MIX</span>${channels}</div>
     <button class="btn" style="height:52px;margin-top:8px">ENROLL IN ${pname.toUpperCase()}</button>
