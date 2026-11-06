@@ -76,7 +76,6 @@ const li = t => `<li>${esc(t)}</li>`;
 document.title = `${r[F.name]} · Heavy Up Diagnosis`;
 document.getElementById("app").innerHTML = `
 <header class="top">
-  <img class="logo" src="assets/jlr-logo.svg" alt="JLR">
   <div class="center"><img class="mark" src="assets/jlr-logo.svg" alt="JLR"><span>RETAILER DIGITAL PROGRAM</span></div>
   <div class="right"><span>${esc(r[F.code])}</span><button class="btn out" id="out">SIGN OUT</button><button class="btn sm">ENROLL NOW</button></div>
 </header>
