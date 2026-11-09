@@ -184,15 +184,6 @@ document.getElementById("nextDealer").addEventListener("click", () => goDealer(o
 // Entrance animation (after d3 transitions: cubic-out ease, staggered, count-up). Plays when each group scrolls into view.
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (!reduce && "IntersectionObserver" in window) {
-  const easeOut = t => 1 - Math.pow(1 - t, 3);
-  const FM = { int: fmt, pct, f1 };
-  const countUp = (el, dur, delay) => {
-    const n = parseFloat(el.dataset.n); if (isNaN(n)) return;
-    const f = FM[el.dataset.k], t0 = performance.now() + delay;
-    el.textContent = f(0);
-    const step = now => { const p = Math.max(0, Math.min(1, (now - t0) / dur)); el.textContent = f(n * easeOut(p)); if (p < 1) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
-  };
   const groups = [...document.querySelectorAll(".metrics .card, .score, .funnel, .quote")];
   document.documentElement.classList.add("anim");
   const io = new IntersectionObserver(es => es.forEach(e => {
@@ -201,7 +192,7 @@ if (!reduce && "IntersectionObserver" in window) {
     const g = e.target, base = g.classList.contains("card") ? [...g.parentNode.children].indexOf(g) * 140 : 0;
     g.style.setProperty("--d", base + "ms");
     g.querySelectorAll(".ch").forEach((c, i) => c.style.setProperty("--i", i));
-    g.querySelectorAll("[data-n]").forEach((el, i) => countUp(el, 1100, base + i * 90));
+    g.querySelectorAll("[data-n]").forEach((el, i) => el.style.setProperty("--n", i));
     g.classList.add("in");
   }), { threshold: .25 });
   groups.forEach(g => io.observe(g));
