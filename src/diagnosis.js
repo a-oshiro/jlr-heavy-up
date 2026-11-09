@@ -36,13 +36,13 @@ const metricCard = m => {
   return `<div class="card">
     <div class="row"><span class="eyebrow" style="font-size:10px">${m.eyebrow}</span><span class="muted" style="font-size:12px">ρ ${m.rho} with sales</span></div>
     <div><span class="lbl">${m.label}</span><span class="desc">${m.desc}</span></div>
-    <div class="row" style="align-items:center"><span class="val" data-n="${v ?? ""}" data-k="${m.k === "close" ? "pct" : "int"}">${m.f(v)}</span><span class="pill" style="background:${s.b};color:${s.c}">${s.s}</span></div>
+    <div class="row" style="align-items:center"><span class="val" data-n="${v ?? ""}" data-k="${m.k === "close" ? "pct" : "int"}">${m.f(v)}</span><span class="pill" style="background:${s.b};color:${s.c}">${s.s.replace(" NETWORK", "<br>NETWORK")}</span></div>
     <div class="bar"><i style="width:${v == null ? 0 : Math.min(100, v / md * 50).toFixed(1)}%;background:${s.c}"></i><b data-tip="Network median: ${m.f(md)}"></b></div>
     <div>
       <div class="kv"><span class="muted">Network median</span><span>${m.f(md)}</span></div>
       <div class="kv"><span class="muted">Difference</span><span style="color:${s.c}">${sgn(s.d)}</span></div>
       <div class="kv"><span class="muted">Network rank</span><span>${rank(m.k)}</span></div>
-      <div class="take">${m.take[s.k + 1]}</div>
+      <div class="take"><span class="tl">WHAT THIS MEANS</span>${m.take[s.k + 1]}</div>
     </div></div>`;
 };
 
@@ -99,7 +99,6 @@ document.getElementById("app").innerHTML = `
 </section>
 <section class="sec-h px">
   <h2>THE THREE METRICS THAT MOVE SALES</h2>
-  <span class="sub">Your results against the median of the ${withSales.length} Land Rover retailers with sales data. The vertical line marks the network median.</span>
 </section>
 <section class="metrics px">${defs.map(metricCard).join("")}</section>
 <section class="banner">
