@@ -197,3 +197,17 @@ if (!reduce && "IntersectionObserver" in window) {
   }), { threshold: .25 });
   groups.forEach(g => io.observe(g));
 }
+
+// Keyboard: Shift+M toggles the Area Manager bar (remembered across dealer reloads); Shift+←/↑ and Shift+→/↓ step through dealers.
+const amBar = document.querySelector(".am"), AMK = "jlr.am";
+try { if (sessionStorage.getItem(AMK) === "1") amBar.classList.add("show"); } catch {}
+document.addEventListener("keydown", e => {
+  if (!e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+  const t = e.target; if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
+  if (e.code === "KeyM") {
+    e.preventDefault();
+    const on = amBar.classList.toggle("show");
+    try { sessionStorage.setItem(AMK, on ? "1" : "0"); } catch {}
+  } else if (e.code === "ArrowLeft" || e.code === "ArrowUp") { e.preventDefault(); goDealer(opts[(idx - 1 + opts.length) % opts.length].code); }
+  else if (e.code === "ArrowRight" || e.code === "ArrowDown") { e.preventDefault(); goDealer(opts[(idx + 1) % opts.length].code); }
+});
