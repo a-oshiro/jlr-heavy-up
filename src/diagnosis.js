@@ -36,7 +36,7 @@ const metricCard = m => {
   return `<div class="card">
     <div class="row"><span class="eyebrow" style="font-size:10px">${m.eyebrow}</span><span class="muted" style="font-size:12px">ρ ${m.rho} with sales</span></div>
     <div><span class="lbl">${m.label}</span><span class="desc">${m.desc}</span></div>
-    <div class="row" style="align-items:center"><span class="val">${m.f(v)}</span><span class="pill" style="background:${s.b};color:${s.c}">${s.s}</span></div>
+    <div class="row" style="align-items:center"><span class="val" data-n="${v ?? ""}" data-k="${m.k === "close" ? "pct" : "int"}">${m.f(v)}</span><span class="pill" style="background:${s.b};color:${s.c}">${s.s}</span></div>
     <div class="bar"><i style="width:${v == null ? 0 : Math.min(100, v / md * 50).toFixed(1)}%;background:${s.c}"></i><b data-tip="Network median: ${m.f(md)}"></b></div>
     <div>
       <div class="kv"><span class="muted">Network median</span><span>${m.f(md)}</span></div>
@@ -47,7 +47,7 @@ const metricCard = m => {
 };
 
 const funnel = [["Total visits", "visits"], ["VLP views", "vlp"], ["Unique leads", "ul"], ["Appointments", "ap"], ["Retail sales", "sales"]]
-  .map(([label, k]) => { const s = status(r[F[k]], MD[k]); return `<div><span style="font-size:13px;font-weight:600">${label}</span><span class="v">${fmt(r[F[k]])}</span><span class="m">Median ${fmt(MD[k])} · <b style="color:${s.c}">${sgn(s.d)}</b></span></div>`; }).join("");
+  .map(([label, k]) => { const s = status(r[F[k]], MD[k]); return `<div><span style="font-size:13px;font-weight:600">${label}</span><span class="v" data-n="${r[F[k]] ?? ""}" data-k="int">${fmt(r[F[k]])}</span><span class="m">Median ${fmt(MD[k])} · <b style="color:${s.c}">${sgn(s.d)}</b></span></div>`; }).join("");
 
 const pk = P[r[F.pkg]] || P["$3K"];
 const pname = { "$3K": "Demand Capture Plan", "$5K": "Growth Plan", "$7.5K": "Acceleration Plan" }[r[F.pkg]] || "Heavy Up Plan";
@@ -77,7 +77,7 @@ document.title = `${r[F.name]} · Heavy Up Diagnosis`;
 document.getElementById("app").innerHTML = `
 <header class="top">
   <div class="center"><img class="mark" src="assets/jlr-logo.svg" alt="JLR"><span>RETAILER DIGITAL PROGRAM</span></div>
-  <div class="right"><span>${esc(r[F.code])}</span><button class="btn out" id="out">SIGN OUT</button><button class="btn sm">ENROLL NOW</button></div>
+  <div class="right"><span>${esc(r[F.code])}</span><button class="btn out" id="out">SIGN OUT</button><button class="btn sm" data-enroll>ENROLL NOW</button></div>
 </header>
 <div class="am">
   <div class="am-in">
@@ -105,14 +105,14 @@ document.getElementById("app").innerHTML = `
 <section class="banner">
   <div><span class="k">YOUR HEAVY UP PLAN · ${esc(nm)}</span><div class="nm"><span>${pname.toUpperCase()}</span></div></div>
   <div class="amt"><b>${price}</b><span>working media / month</span></div>
-  <div class="acts"><button class="btn ghost" id="seePlan" style="height:48px">SEE PLAN DETAILS ↓</button><button class="btn light" style="height:48px">ENROLL IN THIS PLAN</button></div>
+  <div class="acts"><button class="btn ghost" id="seePlan" style="height:48px">SEE PLAN DETAILS ↓</button><button class="btn light" style="height:48px" data-enroll>ENROLL IN THIS PLAN</button></div>
 </section>
 <section class="ov px">
   <div style="display:flex;flex-direction:column;gap:12px;padding-bottom:8px"><span class="eyebrow">OVERVIEW</span><h2>YOUR STORE AT A GLANCE</h2><span class="sub">Your Heavy Up Score, what the data says is limiting growth, and your full funnel against the network.</span></div>
   <div class="grid">
     <div class="score">
       <span class="k">HEAVY UP SCORE</span>
-      <div class="big"><b>${f1(r[F.score])}</b><span>/ 100</span></div>
+      <div class="big"><b data-n="${r[F.score] ?? ""}" data-k="f1">${f1(r[F.score])}</b><span>/ 100</span></div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <div class="track"><i style="width:${r[F.score] || 0}%"></i><u style="left:45%"></u><u style="left:67%"></u></div>
         <div class="ticks"><span style="left:45%">$5K · 45</span><span style="left:67%">$7.5K · 67</span></div>
@@ -157,13 +157,14 @@ document.getElementById("app").innerHTML = `
     <span style="font-size:22px;font-weight:600">${pname}</span>
     <div style="display:flex;align-items:baseline;gap:8px"><span class="price">${price}</span><span class="muted" style="font-size:14px">/ month</span></div>
     <div style="display:flex;flex-direction:column;gap:16px"><span class="eyebrow" style="font-size:10px">CHANNEL MIX</span>${channels}</div>
-    <button class="btn" style="height:52px;margin-top:8px">ENROLL IN ${pname.toUpperCase()}</button>
+    <button class="btn" style="height:52px;margin-top:8px" data-enroll>ENROLL IN ${pname.toUpperCase()}</button>
     <span class="muted" style="font-size:12px;text-align:center">All amounts are monthly working media.</span>
   </aside>
 </section>
 <section class="gate"><span>BEFORE ACTIVATION</span><span>${esc(r[F.gate])}</span></section>
 <footer><span>LAND ROVER HEAVY UP PROGRAM</span><span>PROGRAM SUPPORT: JLR@HELLOCONSTELLATION.COM</span></footer>`;
 
+document.querySelectorAll("[data-enroll]").forEach(b => b.addEventListener("click", () => { location.href = "enroll.html"; }));
 document.getElementById("out").addEventListener("click", () => { try { sessionStorage.removeItem(KEY); } catch {} location.href = "index.html"; });
 
 const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -180,3 +181,29 @@ const idx = opts.findIndex(o => o.code === code);
 document.getElementById("dealerSel").addEventListener("change", e => goDealer(e.target.value));
 document.getElementById("prevDealer").addEventListener("click", () => goDealer(opts[(idx - 1 + opts.length) % opts.length].code));
 document.getElementById("nextDealer").addEventListener("click", () => goDealer(opts[(idx + 1) % opts.length].code));
+
+// Entrance animation (after d3 transitions: cubic-out ease, staggered, count-up). Plays when each group scrolls into view.
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (!reduce && "IntersectionObserver" in window) {
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const FM = { int: fmt, pct, f1 };
+  const countUp = (el, dur, delay) => {
+    const n = parseFloat(el.dataset.n); if (isNaN(n)) return;
+    const f = FM[el.dataset.k], t0 = performance.now() + delay;
+    el.textContent = f(0);
+    const step = now => { const p = Math.max(0, Math.min(1, (now - t0) / dur)); el.textContent = f(n * easeOut(p)); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  };
+  const groups = [...document.querySelectorAll(".metrics .card, .score, .funnel, .quote")];
+  document.documentElement.classList.add("anim");
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const g = e.target, base = g.classList.contains("card") ? [...g.parentNode.children].indexOf(g) * 140 : 0;
+    g.style.setProperty("--d", base + "ms");
+    g.querySelectorAll(".ch").forEach((c, i) => c.style.setProperty("--i", i));
+    g.querySelectorAll("[data-n]").forEach((el, i) => countUp(el, 1100, base + i * 90));
+    g.classList.add("in");
+  }), { threshold: .25 });
+  groups.forEach(g => io.observe(g));
+}
